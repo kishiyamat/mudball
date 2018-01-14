@@ -82,8 +82,7 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
       min_list = c(rand_factor,min_name,min_std)
     }
   }
-  print(min_list)
-  # > print(min_list)
+  # print(min_list)
   # [1] "ItemNo"            "npi:aff"           "0.105571870337726"
 
   rownames(get(sprintf('std_%s', rand_factor)))
@@ -124,8 +123,8 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   new_line = paste(dependent_independent,rs)
 
   message(paste("The old formula is: ",lme_formula))
-  print(variances)
-  message(paste("The old formula is: ",lme_formula))
+  message("下がvariancesというかstdです。")
+  prnt(variances)
   message(sprintf('removed %s in %s',min_list[2], min_list[1]))
   message(paste("The new formula is: ",new_line))
   i = i + 1
@@ -139,15 +138,26 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   old_model_name = deparse(substitute(model))
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
-  print(str_formula)
+  # print(str_formula)
   # strの実行
   eval(parse(text=str_formula))
   # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
   # return で終わるのは確かだけど、そこでさらに呼べばいい。
   appender = sprintf('ps = append(ps, %s)', new_model_name)
   eval(parse(text=appender))
-  print(appender)
-  print(ps)
+  # print(appender)
+  # print(ps)
   recall = sprintf('listBackwardEliminatedModels(%s, i, beeping, ps=ps)', new_model_name)
   eval(parse(text=recall))
+}
+
+# models を anova してくれます。
+anovaModels = function(models){
+  models_var_name = deparse(substitute(models))
+  in_anova = eval(parse(text=
+  sprintf('paste("%s[[",1:length(%s),"]]",sep="",collapse=",")',
+      models_var_name,
+      models_var_name)))
+  anova_result = eval(parse(text=paste("anova(",in_anova,")")))
+  return(anova_result)
 }
