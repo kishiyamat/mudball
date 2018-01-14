@@ -14,7 +14,6 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
-  require(magrittr)
   require(lme4)
   require(beepr)
   # 引数には１１までの数字が入る。
@@ -23,12 +22,7 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   print(i)
   # 最小のモデルまで行きました。
   model_summary = summary(model)
-  rand_factors = (
-    model_summary$ngrps
-    %>% as.data.frame()
-    %>% rownames()
-    %>% as.list())
-
+  rand_factors = as.list(rownames(as.data.frame(model_summary$ngrps)))
   variances = model_summary$varcor
 
   # "stddev_Hoge" に variances$Hoge の stddev を保存する * lenght(rand_factors)
@@ -118,7 +112,7 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   i = i + 1
   print(min_list)
 
-  if(min_list[2][[1]]%>%is.null){
+  if(is.null(min_list[2][[1]])){
     if(beeping){beep(5)}
     return(ps)
   }
