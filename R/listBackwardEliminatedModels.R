@@ -15,9 +15,11 @@
 
 listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   require(lme4)
-  require(beepr)
+  if(beeping){
+    require(beepr)
+    beep()
+  }
   # 引数には１１までの数字が入る。
-  if(beeping){beep()}
   message("###########################################")
   print(i)
   # 最小のモデルまで行きました。
