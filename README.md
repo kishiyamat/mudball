@@ -1,6 +1,6 @@
-# listBackwardEliminatedModels
+# step
 
-`listBackwardEliminatedModels()` は `lmer` や `glmer` で作られたモデルを項に取った後、
+`step()` は `lmer` や `glmer` で作られたモデルを項に取った後、
 Backward Elimination で作成されたモデルをリストとして返します。
 
 ## Prerequisite
@@ -21,19 +21,19 @@ install.packages("devtools")
 ```R
 require(lme4)
 require(devtools)
-install_github("kisyaman/listBackwardEliminatedModels")
-require(listBackwardEliminatedModels)
+install_github("kisyaman/step")
+require(step)
 
 # 検証したいモデルの最大モデルを組む
 model = model
 #
-models = listBackwardEliminatedModels(model,beeping=T)
+models = step(model,beeping=T)
 
 ```
 
 ## 質問
 
-[issue](https://github.com/kisyaman/listBackwardEliminatedModels/issues)をご利用ください。
+[issue](https://github.com/kisyaman/step/issues)をご利用ください。
 
 ## License
 MIT

@@ -1,9 +1,9 @@
-\name{listBackwardEliminatedModels}
-\alias{listBackwardEliminatedModels}
+\name{step}
+\alias{step}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-listBackwardEliminatedModels
+step
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -11,7 +11,7 @@ performs automatic backward elimination of all effects of linear mixed effect mo
 and returns a list of the backward eliminated models.
 }
 \usage{
-listBackwardEliminatedModels(model, i = 0, beeping = F, ps = list())
+step(model, i = 0, beeping = F, ps = list())
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -156,7 +156,7 @@ function (model, i = 0, beeping = F, ps = list())
     eval(parse(text = appender))
     print(appender)
     print(ps)
-    recall = sprintf("listBackwardEliminatedModels(\%s, i, beeping, ps=ps)",
+    recall = sprintf("step(\%s, i, beeping, ps=ps)",
         new_model_name)
     eval(parse(text = recall))
   }

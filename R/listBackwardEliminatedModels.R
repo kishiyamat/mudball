@@ -30,7 +30,7 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
+step = function(model,i=0,beeping=F,ps=list()){
   require(lme4)
   if(beeping){
     require(beepr)
@@ -147,7 +147,7 @@ listBackwardEliminatedModels = function(model,i=0,beeping=F,ps=list()){
   eval(parse(text=appender))
   # print(appender)
   # print(ps)
-  recall = sprintf('listBackwardEliminatedModels(%s, i, beeping, ps=ps)', new_model_name)
+  recall = sprintf('step(%s, i, beeping, ps=ps)', new_model_name)
   eval(parse(text=recall))
 }
 
