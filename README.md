@@ -2,7 +2,7 @@
 
 :snake: 動作まえに `save()` などでモデルを保存してください。
 
-`step()` は `lmer` や `glmer` で作られたモデルを項に取った後、
+`umbel::step()` は `lmer` や `glmer` で作られたモデルを項に取った後、
 Backward Elimination で作成されたモデルをリストとして返します。
 
 ## Prerequisite
@@ -29,7 +29,7 @@ require(umbel)
 
 # 検証したいモデルの最大モデルを組む
 model = model
-#
+# umbel内にあるstep関数にアクセスします。
 models = umbel::step()(model,beeping=T)
 
 ```
