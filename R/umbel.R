@@ -124,7 +124,7 @@ step = function(model,i=0,beeping=F,ps=list()){
 
   message(paste("The old formula is: ",lme_formula))
   message("下がvariancesというかstdです。")
-  prnt(variances)
+  print(variances)
   message(sprintf('removed %s in %s',min_list[2], min_list[1]))
   message(paste("The new formula is: ",new_line))
   i = i + 1
