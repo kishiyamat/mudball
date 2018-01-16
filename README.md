@@ -25,7 +25,7 @@ install.packages("devtools")
 require(lme4)
 require(devtools)
 install_github("kisyaman/umbel")
-require(step)
+require(umbel)
 
 # 検証したいモデルの最大モデルを組む
 model = model
