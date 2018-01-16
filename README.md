@@ -1,4 +1,4 @@
-# step
+# Umbel Models with Backward ELimination
 
 :snake: 動作まえに `save()` などでモデルを保存してください。
 
