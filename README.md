@@ -24,7 +24,7 @@ install.packages("devtools")
 ```R
 require(lme4)
 require(devtools)
-install_github("kisyaman/step")
+install_github("kisyaman/umbel")
 require(step)
 
 # 検証したいモデルの最大モデルを組む

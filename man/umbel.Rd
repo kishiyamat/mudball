@@ -7,6 +7,7 @@ step
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+UMBEL Models with Backward ELimination.
 performs automatic backward elimination of all effects of linear mixed effect model
 and returns a list of the backward eliminated models.
 }
