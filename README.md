@@ -36,7 +36,7 @@ models = umbel::step(model,beeping=T)
 
 ## 質問
 
-[issue](https://github.com/kisyaman/step/issues)をご利用ください。
+[issue](https://github.com/kisyaman/umbel/issues)をご利用ください。
 
 ## License
 MIT
