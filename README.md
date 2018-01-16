@@ -30,7 +30,7 @@ require(umbel)
 # 検証したいモデルの最大モデルを組む
 model = model
 #
-models = step(model,beeping=T)
+models = umbel::step()(model,beeping=T)
 
 ```
 
