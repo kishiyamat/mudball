@@ -30,15 +30,31 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-step = function(model,i=0,beeping=F,ps=list()){
+step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   require(lme4)
   if(beeping){
     require(beepr)
     beep()
   }
+  # 最初に ps に現在のモデルを入れます。
+  old_model_name = deparse(substitute(model))
+  appender = sprintf('ps = append(ps, %s)', old_model_name)
+  eval(parse(text=appender))
+
+  #
+  if(length(ps)==1){
+    print("first")
+  }else if (length(ps)<=2){
+    print("ふたつ目以降")
+  }else{
+    stop("何かおかしい")
+  }
+
+  print(i)
+
   # 引数には１１までの数字が入る。
   message("###########################################")
-  print(i)
+
   # 最小のモデルまで行きました。
   model_summary = summary(model)
   rand_factors = as.list(rownames(as.data.frame(model_summary$ngrps)))
@@ -143,11 +159,7 @@ step = function(model,i=0,beeping=F,ps=list()){
   eval(parse(text=str_formula))
   # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
   # return で終わるのは確かだけど、そこでさらに呼べばいい。
-  appender = sprintf('ps = append(ps, %s)', new_model_name)
-  eval(parse(text=appender))
-  # print(appender)
-  # print(ps)
-  recall = sprintf('step(%s, i, beeping, ps=ps)', new_model_name)
+  recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
 }
 
