@@ -121,7 +121,13 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
 
   if(is_done || is_significant){
     if(beeping){beep(5)}
-    return(ps)
+    # もし有意差がでたなら、古いモデルを
+    # 出ていないなら、最もシンプルなモデル（一番新しく追加されたもの）を
+    if(is_significant){
+      return(rev(ps)[[2]])
+    }else{
+      return(rev(ps)[[1]])
+    }
   }
 
   rownames(get(sprintf('std_%s', rand_factor)))
