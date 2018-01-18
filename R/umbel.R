@@ -192,14 +192,3 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
 }
-
-# models を anova してくれます。
-anovaModels = function(models){
-  models_var_name = deparse(substitute(models))
-  in_anova = eval(parse(text=
-  sprintf('paste("%s[[",1:length(%s),"]]",sep="",collapse=",")',
-      models_var_name,
-      models_var_name)))
-  anova_result = eval(parse(text=paste("anova(",in_anova,")")))
-  return(anova_result)
-}
