@@ -57,17 +57,17 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   }else{
     print(length(ps))
     print(ps)
-    res = anova(ps[[1]],ps[[2]])
+    res = anova(rev(ps)[[1]],rev(ps)[[2]])
     # res = anovaModels(ps)
     pp = res$Pr[!is.na(res$Pr)]
     if(length(pp)!=1){
       warning("何かおかしい")
     }
-    if(pp<0.01){
+    if(pp<p){
       print("有意差")
+      if(beeping){beep(5)}
     }
     # 万が一すすんだときのためのストッパー
-    stop()
     # OK. 多分同じスコープ内にないと参照できない。
     # でもそれだと、比較ができないことになるけど…。
   }
