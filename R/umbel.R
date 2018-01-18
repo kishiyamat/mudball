@@ -36,26 +36,19 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
     require(beepr)
     beep()
   }
-  # 最初に ps に現在のモデルを入れます。
-  old_model_name = deparse(substitute(model))
-  message("###########################################")
-  message("###########################################")
-  print("old model name is:")
-  print(old_model_name)
-  message("###########################################")
-  message("###########################################")
-  appender = sprintf('ps = append(ps, %s)', old_model_name)
-  eval(parse(text=appender))
-  print("input model is:")
-  print(model)
 
-  #
-  if(length(ps)==1){
+  if(length(ps)==0){
+    # 最初に ps に現在のモデルを入れます。
+    old_model_name = deparse(substitute(model))
+    appender = sprintf('ps = append(ps, %s)', old_model_name)
+    eval(parse(text=appender))
     print("first")
-  }else if (length(ps)<=2){
-    print("ふたつ目以降")
+  # }else if (length(ps)<=2){
+  #   print("ふたつ目以降")
   }else{
-    stop("何かおかしい")
+    print(length(ps))
+    print("↑２であってほしい")
+    # stop("何かおかしい")
   }
 
   print(i)
@@ -163,16 +156,9 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
   eval(parse(text=str_formula))
-  message("###########################################")
-  message("###########################################")
-  message("###########################################")
-  print("we caled:")
-  print(str_formula)
-  eval(parse(text=sprintf('print(%s)', new_model_name)))
-  message("###########################################")
-  message("###########################################")
-  message("###########################################")
   # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
+  appender = sprintf('ps = append(ps, %s)', new_model_name)
+  eval(parse(text=appender))
   # return で終わるのは確かだけど、そこでさらに呼べばいい。
   recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
