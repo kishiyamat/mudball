@@ -38,8 +38,16 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   }
   # 最初に ps に現在のモデルを入れます。
   old_model_name = deparse(substitute(model))
+  message("###########################################")
+  message("###########################################")
+  print("old model name is:")
+  print(old_model_name)
+  message("###########################################")
+  message("###########################################")
   appender = sprintf('ps = append(ps, %s)', old_model_name)
   eval(parse(text=appender))
+  print("input model is:")
+  print(model)
 
   #
   if(length(ps)==1){
@@ -154,8 +162,6 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   # old_model_name = deparse(substitute(model))
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
-  # print(str_formula)
-  # strの実行
   eval(parse(text=str_formula))
   # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
   # return で終わるのは確かだけど、そこでさらに呼べばいい。
