@@ -62,10 +62,11 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
     pp = res$Pr[!is.na(res$Pr)]
     if(pp<p){
       is_significant = TRUE
-      print("以下の２つのモデルに有意差がありました。")
+      print("以下の２つのモデルに有意差がありました。後者を返します")
+      # 新しい方
       print(rev(ps)[[1]])
+      # 古い方
       print(rev(ps)[[2]])
-      if(beeping){beep(5)}
     }
   }
   message("################is_significant_done###############")
@@ -124,8 +125,10 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
     # もし有意差がでたなら、古いモデルを
     # 出ていないなら、最もシンプルなモデル（一番新しく追加されたもの）を
     if(is_significant){
+      # 古い方
       return(rev(ps)[[2]])
     }else{
+      # 新しい方
       return(rev(ps)[[1]])
     }
   }
@@ -185,6 +188,7 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   eval(parse(text=str_formula))
   appender = sprintf('ps = append(ps, %s)', new_model_name)
   eval(parse(text=appender))
+  message("############ 新しいモデル名にモデルを格納し、psも更新しました。再帰処理に入ります。 ################")
   recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
 }
