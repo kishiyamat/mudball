@@ -30,6 +30,15 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
+# res = anova(models[[7]],models[[6]])
+# pp = res$Pr[!is.na(res$Pr)]
+# if(length(pp)!=1){
+#   warning("何かおかしい")
+# }
+# if(pp<0.01){
+#   print("有意差")
+# }
+
 step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   require(lme4)
   if(beeping){
@@ -47,8 +56,18 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   #   print("ふたつ目以降")
   }else{
     print(length(ps))
-    print("↑２であってほしい")
-    # stop("何かおかしい")
+    res = anovaModels(ps)
+    pp = res$Pr[!is.na(res$Pr)]
+    if(length(pp)!=1){
+      warning("何かおかしい")
+    }
+    if(pp<0.01){
+      print("有意差")
+    }
+    # 万が一すすんだときのためのストッパー
+    stop()
+    # OK. 多分同じスコープ内にないと参照できない。
+    # でもそれだと、比較ができないことになるけど…。
   }
 
   print(i)
