@@ -168,12 +168,12 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   message("###########################################")
   print("we caled:")
   print(str_formula)
+  eval(parse(text=sprintf('print(%s)', new_model_name)))
   message("###########################################")
   message("###########################################")
   message("###########################################")
   # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
   # return で終わるのは確かだけど、そこでさらに呼べばいい。
-  print("")
   recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
 }
