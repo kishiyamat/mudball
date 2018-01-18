@@ -151,7 +151,7 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
     return(ps)
   }
 
-  old_model_name = deparse(substitute(model))
+  # old_model_name = deparse(substitute(model))
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
   # print(str_formula)
