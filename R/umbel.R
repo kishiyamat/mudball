@@ -30,7 +30,7 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-res = anova(models[[7]],models[[6]])
+# res = anova(models[[7]],models[[6]])
 # pp = res$Pr[!is.na(res$Pr)]
 # if(length(pp)!=1){
 #   warning("何かおかしい")
