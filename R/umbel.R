@@ -40,43 +40,37 @@
 # }
 
 step = function(model,i=0,beeping=F,ps=list(),p=0.05){
+  # パッケージの読み込み
   require(lme4)
   if(beeping){
     require(beepr)
     beep()
   }
+  # 終了条件のフラグ
+  is_significant = FALSE
+  is_done = FALSE
 
+  message("############is_significant_start###################")
+  # 最初ならばpsにモデルを追加する
+  # 違うならば、psが2つ以上なのでanovaにかけてis_significantを更新する
   if(length(ps)==0){
-    # 最初に ps に現在のモデルを入れます。
     old_model_name = deparse(substitute(model))
     appender = sprintf('ps = append(ps, %s)', old_model_name)
     eval(parse(text=appender))
-    print("first")
-  # }else if (length(ps)<=2){
-  #   print("ふたつ目以降")
   }else{
-    print(length(ps))
-    print(ps)
     res = anova(rev(ps)[[1]],rev(ps)[[2]])
-    # res = anovaModels(ps)
     pp = res$Pr[!is.na(res$Pr)]
-    if(length(pp)!=1){
-      warning("何かおかしい")
-    }
     if(pp<p){
-      print("有意差")
+      is_significant = TRUE
+      print("以下の２つのモデルに有意差がありました。")
+      print(rev(ps)[[1]])
+      print(rev(ps)[[2]])
       if(beeping){beep(5)}
     }
-    # 万が一すすんだときのためのストッパー
-    # OK. 多分同じスコープ内にないと参照できない。
-    # でもそれだと、比較ができないことになるけど…。
   }
-
+  message("################is_significant_done###############")
+  print("現在のプロセス番号：")
   print(i)
-
-  # 引数には１１までの数字が入る。
-  message("###########################################")
-
   # 最小のモデルまで行きました。
   model_summary = summary(model)
   rand_factors = as.list(rownames(as.data.frame(model_summary$ngrps)))
@@ -167,8 +161,9 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   message(paste("The new formula is: ",new_line))
   i = i + 1
   print(min_list)
+  is_done = is.null(min_list[2][[1]])
 
-  if(is.null(min_list[2][[1]])){
+  if(is_done || is_significant){
     if(beeping){beep(5)}
     return(ps)
   }
@@ -177,10 +172,8 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
   eval(parse(text=str_formula))
-  # これをsprintf(retrun(backward(),%s),new_model_name)みたいにすれば良いのでは？
   appender = sprintf('ps = append(ps, %s)', new_model_name)
   eval(parse(text=appender))
-  # return で終わるのは確かだけど、そこでさらに呼べばいい。
   recall = sprintf('step(%s, i, beeping, ps=ps, p=p)', new_model_name)
   eval(parse(text=recall))
 }
