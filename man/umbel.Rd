@@ -28,7 +28,7 @@ step(model, i = 0, beeping = F, ps = list())
 %  \item{ps}{
 %%     ~~Describe \code{ps} here~~
 % }
-}
+% }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
