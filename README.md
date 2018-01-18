@@ -1,8 +1,8 @@
-# Umbel Models with Backward ELimination
+# mudball
 
 :snake: 動作まえに `save()` などでモデルを保存してください。
 
-`umbel::step()` は `lmer` や `glmer` で作られたモデルを項に取った後、
+`mudball::step()` は `lmer` や `glmer` で作られたモデルを項に取った後、
 Backward Elimination で作成されたモデルをリストとして返します。
 
 ## Prerequisite
@@ -24,19 +24,19 @@ install.packages("devtools")
 ```R
 require(lme4)
 require(devtools)
-install_github("kisyaman/umbel")
-require(umbel)
+install_github("kisyaman/mudball")
+require(mudball)
 
 # 検証したいモデルの最大モデルを組む
 model = model
-# umbel内にあるstep関数にアクセスします。
-models = umbel::step(model,beeping=T)
+# mudball内にあるstep関数にアクセスします。
+models = mudball::step(model,beeping=T)
 
 ```
 
 ## 質問
 
-[issue](https://github.com/kisyaman/umbel/issues)をご利用ください。
+[issue](https://github.com/kisyaman/mudball/issues)をご利用ください。
 
 ## License
 MIT
