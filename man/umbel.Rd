@@ -21,14 +21,14 @@ step(model, i = 0, beeping = F, ps = list())
 }
 %  \item{i}{
 %%     ~~Describe \code{i} here~~
-}
+% }
 %  \item{beeping}{
 %%     ~~Describe \code{beeping} here~~
 % }
 %  \item{ps}{
 %%     ~~Describe \code{ps} here~~
 % }
-% }
+}
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
