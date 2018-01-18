@@ -69,8 +69,8 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
     }
   }
   message("################is_significant_done###############")
-  print("現在のプロセス番号：")
-  print(i)
+  message("現在のプロセス番号：")
+  message(i)
   # 最小のモデルまで行きました。
   model_summary = summary(model)
   rand_factors = as.list(rownames(as.data.frame(model_summary$ngrps)))
@@ -117,6 +117,13 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   # print(min_list)
   # [1] "ItemNo"            "npi:aff"           "0.105571870337726"
 
+  is_done = is.null(min_list[2][[1]])
+
+  if(is_done || is_significant){
+    if(beeping){beep(5)}
+    return(ps)
+  }
+
   rownames(get(sprintf('std_%s', rand_factor)))
   rand_intercepts = list()
   for(rand_factor in rand_factors){
@@ -153,21 +160,19 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   lme_data = formula[3]
   dependent_independent = strsplit(lme_formula , "\\(")[[1]][1]
   new_line = paste(dependent_independent,rs)
-
+  message("########### 新しい式づくり start ##################")
   message(paste("The old formula is: ",lme_formula))
-  message("下がvariancesというかstdです。")
+  message("下がstdです。")
   print(variances)
-  message(sprintf('removed %s in %s',min_list[2], min_list[1]))
+  message(sprintf('最もstdが小さいのは %s の中の %s なので、これを削ります', min_list[1], min_list[2]))
+  message("その結果、以下の式が得られます")
   message(paste("The new formula is: ",new_line))
+  message("############ 新しい式づくり end ################")
+
+  # モデルの名前を更新します
   i = i + 1
-  print(min_list)
-  is_done = is.null(min_list[2][[1]])
 
-  if(is_done || is_significant){
-    if(beeping){beep(5)}
-    return(ps)
-  }
-
+  message("############ 新しいモデル名にモデルを格納し、psも更新します ################")
   old_model_name = deparse(substitute(model))
   new_model_name = paste(old_model_name, as.character(i),sep = "_")
   str_formula = sprintf('%s = lmer(%s, data=%s)', new_model_name, new_line, lme_data)
