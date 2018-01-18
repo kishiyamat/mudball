@@ -57,7 +57,7 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   }else{
     print(length(ps))
     print(ps)
-    res = anova(models[[1]],models[[2]])
+    res = anova(ps[[1]],ps[[2]])
     # res = anovaModels(ps)
     pp = res$Pr[!is.na(res$Pr)]
     if(length(pp)!=1){
