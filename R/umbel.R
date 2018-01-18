@@ -56,6 +56,7 @@ step = function(model,i=0,beeping=F,ps=list(),p=0.05){
   #   print("ふたつ目以降")
   }else{
     print(length(ps))
+    print(ps)
     res = anovaModels(ps)
     pp = res$Pr[!is.na(res$Pr)]
     if(length(pp)!=1){
