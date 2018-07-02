@@ -24,7 +24,7 @@ install.packages("devtools")
 ```R
 require(lme4)
 require(devtools)
-install_github("kisyaman/mudball")
+install_github("kisiyama/mudball")
 require(mudball)
 
 # 検証したいモデルの最大モデルを組む
@@ -36,7 +36,7 @@ models = mudball::step(model,beeping=T)
 
 ## 質問
 
-[issue](https://github.com/kisyaman/mudball/issues)をご利用ください。
+[issue](https://github.com/kisiyama/mudball/issues)をご利用ください。
 
 ## License
 MIT
