@@ -31,7 +31,7 @@
 #   Test Package:              'Ctrl + Shift + T'
 require(lme4)
 require(magrittr)
-require(tidyverse)
+require(dplyr)
 step.bw <- function(model,log=TRUE){
     # rand(om effect)における最も小さいvarianceを除外したい
     varcorr.df.rand <- 
